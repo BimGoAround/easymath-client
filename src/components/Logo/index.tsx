@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 import { LogoIcon } from '@/configs';
@@ -7,5 +8,16 @@ type LogoProps = {
 };
 
 export const Logo = ({ className }: LogoProps) => {
-  return <LogoIcon className={twMerge('cursor-pointer', className)} />;
+  const navigate = useNavigate();
+
+  const backToHome = () => {
+    navigate('/');
+  };
+
+  return (
+    <LogoIcon
+      className={twMerge('cursor-pointer', className)}
+      onClick={backToHome}
+    />
+  );
 };
