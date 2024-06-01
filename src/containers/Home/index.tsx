@@ -1,4 +1,4 @@
-import { AIResponse, Header, HomeContent, Input } from '@/components';
+import { Header, HomeContent, Input } from '@/components';
 
 export const Home = () => {
   return (
@@ -11,7 +11,8 @@ export const Home = () => {
         <div className="mt-8 max-w-2xl w-full">
           <Input />
 
-          <AIResponse />
+          {/* TODO: only show this one when we have the response */}
+          {/* <AIResponse /> */}
         </div>
       </div>
     </div>

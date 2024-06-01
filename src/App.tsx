@@ -1,12 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PATHS } from './configs';
-import { Home } from './containers';
+import { DevContainer, Home } from './containers';
 
 const router = createBrowserRouter([
   {
     path: PATHS.home,
     element: <Home />,
+  },
+  {
+    path: PATHS.dev,
+    element: <DevContainer />,
   },
 ]);
 

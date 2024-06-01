@@ -9,6 +9,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
   ],
   overrides: [
     {
@@ -30,7 +31,6 @@ module.exports = {
   rules: {
     'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'warn',
-    'no-unused-vars': 'error',
     'no-console': 'warn',
   },
 };
