@@ -1,4 +1,5 @@
 export * from './AIRespose';
+export * from './Accordion';
 export * from './EllipsisWave';
 export * from './FeedbackDialog';
 export * from './Header';

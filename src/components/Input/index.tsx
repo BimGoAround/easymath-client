@@ -26,11 +26,19 @@ export const Input = () => {
   const onInputChange = (event: any) => {
     setInput(event.target.value);
   };
+
+  const onHandleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      //TODO: Handle enter
+    }
+  };
   return (
     <>
       <Textarea
         className="bg-zinc-700 text-zinc-400 rounded-t-2xl"
         placeholder={'Type your description here...'}
+        onInputChange={onInputChange}
+        onKeyDown={onHandleKeyDown}
       />
 
       <div className="bg-zinc-700 p-3 rounded-b-2xl flex items-end justify-between">
@@ -66,7 +74,7 @@ export const Input = () => {
           variant={'link'}
           size={'sm'}
           disabled={!input ? true : false}
-          className="hover:bg-zinc-900 rounded"
+          className="hover:bg-zinc-900 rounded py-[2px] px-[1px] h-fit"
         >
           <ArrowRightIcon className="text-zinc-100" />
         </Button>

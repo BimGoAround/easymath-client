@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PATHS } from './configs';
-import { DevContainer, Home } from './containers';
+import { DevContainer, FAQPage, Home } from './containers';
 
 const router = createBrowserRouter([
   {
@@ -11,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: PATHS.dev,
     element: <DevContainer />,
+  },
+  {
+    path: PATHS.faq,
+    element: <FAQPage />,
   },
 ]);
 
