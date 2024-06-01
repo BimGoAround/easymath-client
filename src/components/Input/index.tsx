@@ -29,10 +29,8 @@ export const Input = () => {
   return (
     <>
       <Textarea
-        className="bg-zinc-700 text-zinc-400 resize-none rounded-t-2xl outline-none"
+        className="bg-zinc-700 text-zinc-400 rounded-t-2xl"
         placeholder={'Type your description here...'}
-        value={input}
-        onChange={onInputChange}
       />
 
       <div className="bg-zinc-700 p-3 rounded-b-2xl flex items-end justify-between">
