@@ -5,8 +5,11 @@ import {
 } from '@radix-ui/react-icons';
 import { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export const Input = () => {
   const [image, setImage] = useState<string | undefined>();
@@ -23,19 +26,22 @@ export const Input = () => {
     setImage(undefined);
   };
 
-  const onInputChange = (event: any) => {
+  const onInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
   };
 
-  const onHandleKeyDown = (event: any) => {
+  const onHandleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter') {
       //TODO: Handle enter
     }
   };
+
+  const handleSubmit = () => {};
+
   return (
     <>
       <Textarea
-        className="bg-zinc-700 text-zinc-400 rounded-t-2xl"
+        className="bg-zinc-700 text-zinc-50 rounded-t-2xl placeholder-zinc-400 font-medium"
         placeholder={'Type your description here...'}
         onInputChange={onInputChange}
         onKeyDown={onHandleKeyDown}
@@ -70,14 +76,31 @@ export const Input = () => {
             <span>Image</span>
           </label>
         </div>
-        <Button
-          variant={'link'}
-          size={'sm'}
-          disabled={!input ? true : false}
-          className="hover:bg-zinc-900 rounded py-[2px] px-[1px] h-fit"
-        >
-          <ArrowRightIcon className="text-zinc-100" />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant={'link'}
+              size={'sm'}
+              disabled={!input ? true : false}
+              className="hover:bg-zinc-900 rounded py-[2px] px-[1px] h-fit cursor-pointer"
+              onClick={handleSubmit}
+            >
+              <ArrowRightIcon
+                className={cn('transition-all', {
+                  'text-zinc-100': !input,
+                  'text-zinc-50': input,
+                })}
+              />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent
+            side="bottom"
+            sideOffset={16}
+            className="bg-zinc-900 text-zinc-50"
+          >
+            Submit
+          </TooltipContent>
+        </Tooltip>
       </div>
     </>
   );
