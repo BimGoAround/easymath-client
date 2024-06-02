@@ -16,14 +16,16 @@ export const Input = () => {
   const [image, setImage] = useState<string | undefined>();
   const [input, setInput] = useState<string>('');
 
-  const { uploadFile, isLoading } = useUploadFile();
+  const { uploadFile } = useUploadFile();
 
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const img = event.target.files[0];
       setImage(URL.createObjectURL(img));
 
-      uploadFile(img);
+      uploadFile({
+        file: img,
+      });
     }
   };
 

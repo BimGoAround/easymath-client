@@ -2,14 +2,19 @@ import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 
 import { uploadFileApi } from '@/configs/apis';
 
-import { createResponseWrapper } from '../helpers';
+import { responseNoBody } from '../helpers';
+import { UploadFileType } from './types';
 
-export const useUploadFile = (options?: UseMutationOptions) => {
+export const useUploadFile = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: UseMutationOptions<any, Error, UploadFileType>,
+) => {
   const { mutate: uploadFile, isPending: isLoading } = useMutation({
-    mutationFn: (payload) => createResponseWrapper(uploadFileApi, [payload]),
+    mutationFn: (payload: UploadFileType) =>
+      responseNoBody(uploadFileApi, [payload]),
     onError: (error) => {
       // eslint-disable-next-line no-console
-      console.error('Error creating test:', error);
+      console.error('Error upload file:', error);
     },
     ...options,
   });

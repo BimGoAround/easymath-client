@@ -20,18 +20,16 @@ const getTestApi = (params: GetPropertiesParams) =>
 
 const createTestApi = (payload: unknown) => api.post('/test', payload, {});
 
-const uploadFileApi = (payload: any) => {
+const uploadFileApi = (payload: File) => {
   const data = {
     file: payload,
   };
 
-  return api.post(
-    '/file/upload',
-    {
-      file: 'abc',
+  return api.post('/file/upload', data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
     },
-    {},
-  );
+  });
 };
 
 export { api, createTestApi, getTestApi, uploadFileApi };
