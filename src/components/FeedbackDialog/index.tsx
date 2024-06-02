@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -11,14 +13,19 @@ import {
 } from '@/components/ui/dialog';
 
 import { Textarea } from '../ui/textarea';
-import { useState } from 'react';
 
 export const FeedbackDialog = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [input, setInput] = useState<string>('');
 
-  const onInputChange = (event: any) => {
+  const onInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(event.target.value);
   };
+
+  // TODO: just for deploying
+  // eslint-disable-next-line no-console
+  console.log('input', input);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
