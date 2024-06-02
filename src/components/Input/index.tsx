@@ -8,21 +8,19 @@ import { useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useUploadFile } from '@/queries';
-import { usePostQuestion } from '@/queries/Math';
 
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-export const Input = () => {
+type InputProps = { handleSendQuestion: any };
+
+export const Input = ({ handleSendQuestion }: InputProps) => {
   const [image, setImage] = useState<string | undefined>();
   const [input, setInput] = useState<string>('');
 
   const imageUrl = useRef<string>('');
 
-  const { sendQuestion } = usePostQuestion({
-    onSuccess() {},
-  });
   const { uploadFile, isLoading: isUploading } = useUploadFile({
     onSuccess({ data }) {
       imageUrl.current = data.data.url;
@@ -62,7 +60,7 @@ export const Input = () => {
       imageUrl: imageUrl.current,
     };
 
-    sendQuestion(request);
+    handleSendQuestion(request);
   };
 
   const onInputClick = (

@@ -1,4 +1,6 @@
-export const HomeContent = () => {
+import { memo } from 'react';
+
+export const HomeContent = memo(() => {
   return (
     <>
       <span className="font-bold text-5xl leading-10">
@@ -9,4 +11,4 @@ export const HomeContent = () => {
       </span>
     </>
   );
-};
+});
