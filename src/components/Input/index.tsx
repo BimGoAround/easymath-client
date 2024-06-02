@@ -6,6 +6,7 @@ import {
 import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
+import { useUploadFile } from '@/queries/File';
 
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -15,10 +16,14 @@ export const Input = () => {
   const [image, setImage] = useState<string | undefined>();
   const [input, setInput] = useState<string>('');
 
+  const { uploadFile, isLoading } = useUploadFile();
+
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const img = event.target.files[0];
       setImage(URL.createObjectURL(img));
+
+      uploadFile(img);
     }
   };
 

@@ -21,7 +21,7 @@ export async function responseWrapper<T>(
   });
 }
 
-export async function createResponseWrapper<T>(
+export async function createResponseWrapper<T>( 
   func: ApiCall,
   [...args]: any,
 ): Promise<T> {

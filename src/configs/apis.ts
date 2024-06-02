@@ -20,4 +20,18 @@ const getTestApi = (params: GetPropertiesParams) =>
 
 const createTestApi = (payload: unknown) => api.post('/test', payload, {});
 
-export { api, createTestApi, getTestApi };
+const uploadFileApi = (payload: any) => {
+  const data = {
+    file: payload,
+  };
+
+  return api.post(
+    '/file/upload',
+    {
+      file: 'abc',
+    },
+    {},
+  );
+};
+
+export { api, createTestApi, getTestApi, uploadFileApi };
