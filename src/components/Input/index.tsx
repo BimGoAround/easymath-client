@@ -65,6 +65,13 @@ export const Input = () => {
     sendQuestion(request);
   };
 
+  const onInputClick = (
+    event: React.MouseEvent<HTMLInputElement, MouseEvent>,
+  ) => {
+    const element = event.target as HTMLInputElement;
+    element.value = '';
+  };
+
   return (
     <>
       <Textarea
@@ -100,7 +107,8 @@ export const Input = () => {
             name="file"
             id="file"
             className="opacity-0 overflow-hidden w-0 h-0"
-            accept="image/png, image/gif, image/jpeg"
+            accept="image/png, image/jpeg"
+            onClick={onInputClick}
             onChange={onImageChange}
           />
           <label

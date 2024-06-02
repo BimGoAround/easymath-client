@@ -1,4 +1,4 @@
-import { Header, HomeContent, Input } from '@/components';
+import { AIResponse, Header, HomeContent, Input } from '@/components';
 import { BackgroundIcon as Background } from '@/configs';
 
 export const Home = () => {
@@ -14,7 +14,7 @@ export const Home = () => {
           <Input />
 
           {/* TODO: only show this one when we have the response */}
-          {/* <AIResponse /> */}
+          <AIResponse />
         </div>
       </div>
     </div>
