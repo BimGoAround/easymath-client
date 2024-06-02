@@ -15,6 +15,9 @@ const api = create({
 });
 
 // get(endpoint, params, axiosConfig)
-const testApi = (params: GetPropertiesParams) => api.get('/test', params, {});
+const getTestApi = (params: GetPropertiesParams) =>
+  api.get('/test', params, {});
 
-export { api, testApi };
+const createTestApi = (payload: unknown) => api.post('/test', payload, {});
+
+export { api, createTestApi, getTestApi };

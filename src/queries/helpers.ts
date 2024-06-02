@@ -20,3 +20,24 @@ export async function responseWrapper<T>(
     }
   });
 }
+
+export async function createResponseWrapper<T>(
+  func: ApiCall,
+  [...args]: any,
+): Promise<T> {
+  return new Promise(async (res, rej) => {
+    try {
+      const response = (await func(...args)) || {};
+      if (response?.ok) {
+        res(response?.data?.data);
+      } else {
+        const message = response?.data?.message?.map
+          ? response?.data?.message?.map((item: string) => item)?.join(', ')
+          : response?.data?.message;
+        rej({ message });
+      }
+    } catch (err) {
+      rej(err);
+    }
+  });
+}
