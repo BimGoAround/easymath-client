@@ -1,6 +1,10 @@
 import { create } from 'apisauce';
 
-import { GetPropertiesParams } from '@/queries';
+import {
+  GetPropertiesParams,
+  SendQuestionPayload,
+  UploadFilePayload,
+} from '@/queries';
 
 import { API_BASE_URL } from './constant';
 
@@ -20,16 +24,14 @@ const getTestApi = (params: GetPropertiesParams) =>
 
 const createTestApi = (payload: unknown) => api.post('/test', payload, {});
 
-const uploadFileApi = (payload: File) => {
-  const data = {
-    file: payload,
-  };
-
-  return api.post('/file/upload', data, {
+const uploadFileApi = (payload: UploadFilePayload) =>
+  api.post('/file/upload', payload, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
-};
 
-export { api, createTestApi, getTestApi, uploadFileApi };
+const sendQuestionApi = (payload: SendQuestionPayload) =>
+  api.post('/math', payload, {});
+
+export { api, createTestApi, getTestApi, sendQuestionApi, uploadFileApi };

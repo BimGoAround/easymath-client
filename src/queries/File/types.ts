@@ -1,3 +1,3 @@
-export type UploadFileType = {
+export type UploadFilePayload = {
   file: File;
 };

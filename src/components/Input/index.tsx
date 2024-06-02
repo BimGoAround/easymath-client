@@ -3,10 +3,11 @@ import {
   CrossCircledIcon,
   ImageIcon,
 } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
-import { useUploadFile } from '@/queries/File';
+import { useUploadFile } from '@/queries';
+import { usePostQuestion } from '@/queries/Math';
 
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
@@ -16,16 +17,29 @@ export const Input = () => {
   const [image, setImage] = useState<string | undefined>();
   const [input, setInput] = useState<string>('');
 
-  const { uploadFile } = useUploadFile();
+  const imageUrl = useRef<string>('');
+
+  const { sendQuestion, isLoading } = usePostQuestion({
+    onSuccess(data) {
+      console.log(data.message.content);
+    },
+  });
+  const { uploadFile, isLoading: isUploading } = useUploadFile({
+    onSuccess({ data }) {
+      imageUrl.current = data.data.url;
+    },
+  });
 
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const img = event.target.files[0];
       setImage(URL.createObjectURL(img));
 
-      uploadFile({
+      const payload = {
         file: img,
-      });
+      };
+
+      uploadFile(payload);
     }
   };
 
@@ -43,7 +57,14 @@ export const Input = () => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const request = {
+      message: input,
+      imageUrl: imageUrl.current,
+    };
+
+    sendQuestion(request);
+  };
 
   return (
     <>
