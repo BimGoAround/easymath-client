@@ -3,22 +3,40 @@ import {
   CrossCircledIcon,
   ImageIcon,
 } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { Loader2 } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
+import { useUploadFile } from '@/queries';
 
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-export const Input = () => {
+type InputProps = { handleSendQuestion: any };
+
+export const Input = ({ handleSendQuestion }: InputProps) => {
   const [image, setImage] = useState<string | undefined>();
   const [input, setInput] = useState<string>('');
+
+  const imageUrl = useRef<string>('');
+
+  const { uploadFile, isLoading: isUploading } = useUploadFile({
+    onSuccess({ data }) {
+      imageUrl.current = data.data.url;
+    },
+  });
 
   const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const img = event.target.files[0];
       setImage(URL.createObjectURL(img));
+
+      const payload = {
+        file: img,
+      };
+
+      uploadFile(payload);
     }
   };
 
@@ -36,7 +54,21 @@ export const Input = () => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    const request = {
+      message: input,
+      imageUrl: imageUrl.current,
+    };
+
+    handleSendQuestion(request);
+  };
+
+  const onInputClick = (
+    event: React.MouseEvent<HTMLInputElement, MouseEvent>,
+  ) => {
+    const element = event.target as HTMLInputElement;
+    element.value = '';
+  };
 
   return (
     <>
@@ -50,10 +82,18 @@ export const Input = () => {
       <div className="bg-zinc-700 p-3 rounded-b-2xl flex items-end justify-between">
         <div>
           {image && (
-            <div className="w-8 h-8 relative">
+            <div className="w-10 h-10 relative">
               <div className=" w-full h-full overflow-hidden rounded relative">
-                <img className="w-full h-full object-cover" src={image} />
+                <img
+                  className={cn('w-full h-full object-cover', {
+                    'opacity-30': isUploading,
+                  })}
+                  src={image}
+                />
               </div>
+              {isUploading && (
+                <Loader2 className="h-4 w-4 animate-spin absolute top-[12px] left-[12px] text-white" />
+              )}
               <CrossCircledIcon
                 className="absolute -top-1 -right-1 text-zinc-400 w-3 h-3 z-10 cursor-pointer"
                 onClick={onRemoveImage}
@@ -65,7 +105,8 @@ export const Input = () => {
             name="file"
             id="file"
             className="opacity-0 overflow-hidden w-0 h-0"
-            accept="image/png, image/gif, image/jpeg"
+            accept="image/png, image/jpeg"
+            onClick={onInputClick}
             onChange={onImageChange}
           />
           <label
