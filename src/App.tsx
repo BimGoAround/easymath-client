@@ -1,3 +1,5 @@
+import 'katex/dist/katex.min.css';
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PATHS } from './configs';

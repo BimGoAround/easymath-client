@@ -1,4 +1,8 @@
 import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+import { cn } from '@/lib/utils';
 
 type TextAnimatorProps = {
   className?: string;
@@ -6,10 +10,8 @@ type TextAnimatorProps = {
   speed: number;
 };
 
-export const TextAnimator = ({ text, speed }: TextAnimatorProps) => {
-  const [displayedText, setDisplayedText] = useState(
-    "To solve the expression \\( 4 + 2 \\div 2 + 1 \\), we need to follow the order of operations (PEMDAS/BODMAS):\n\nP/B: Parentheses/Brackets first  \nE/O: Exponents/Orders (i.e., powers and square roots, etc.)  \nMD/DM: Multiplication and Division (left-to-right)  \nAS: Addition and Subtraction (left-to-right)  \n\nLet's solve it step by step:\n\n1. First, perform the division:\n\\[ 4 + (2 \\div 2) + 1 \\]\n\\[ 4 + 1 + 1 \\]\n\n2. Next, perform the addition from left to right:\n\\[ (4 + 1) + 1 \\]\n\\[ 5 + 1 \\]\n\\[ 6 \\]\n\nSo, the final answer is 6.",
-  );
+export const TextAnimator = ({ text, speed, ...props }: TextAnimatorProps) => {
+  const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
     let currentText = '';
@@ -24,9 +26,17 @@ export const TextAnimator = ({ text, speed }: TextAnimatorProps) => {
         clearInterval(timer);
       }
     }, speed);
-    return;
-    () => clearInterval(timer);
+
+    return () => clearInterval(timer);
   }, [text, speed]);
 
-  return <div>{displayedText}</div>;
+  return (
+    <ReactMarkdown
+      {...props}
+      remarkPlugins={[remarkGfm]}
+      className={cn('whitespace-pre-wrap', props.className)}
+    >
+      {displayedText}
+    </ReactMarkdown>
+  );
 };

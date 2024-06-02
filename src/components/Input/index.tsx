@@ -7,13 +7,13 @@ import { Loader2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import { cn } from '@/lib/utils';
-import { useUploadFile } from '@/queries';
+import { Callback, useUploadFile } from '@/queries';
 
 import { Button } from '../ui/button';
 import { Textarea } from '../ui/textarea';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
-type InputProps = { handleSendQuestion: any };
+type InputProps = { handleSendQuestion: Callback };
 
 export const Input = ({ handleSendQuestion }: InputProps) => {
   const [image, setImage] = useState<string | undefined>();
