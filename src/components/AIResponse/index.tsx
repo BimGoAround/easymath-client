@@ -8,7 +8,7 @@ type AIResponseProps = {
 export const AIResponse = ({ answer }: AIResponseProps) => {
   return (
     <ResponseWrapper>
-      <TextAnimator text={answer} speed={30} />
+      <TextAnimator className="pb-5" text={answer} speed={30} />
     </ResponseWrapper>
   );
 };

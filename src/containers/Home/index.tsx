@@ -9,6 +9,7 @@ import {
 } from '@/components';
 import { BackgroundIcon as Background } from '@/configs';
 import { usePostQuestion } from '@/queries';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const Home = () => {
   const [answer, setAnswer] = useState<string>('');
@@ -25,15 +26,35 @@ export const Home = () => {
       <Header />
 
       <div className="flex flex-1 flex-col items-center justify-center z-10">
-        <HomeContent />
+        <AnimatePresence>
+          {(!answer && !isLoading) &&
+            <motion.div
+              initial={{ opacity: 0, y: "-50%" }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: "40%" }}
+              transition={{ delay: 0, duration: 0.4 }}
+            >
+              <HomeContent />
+            </motion.div>
+          }
+        </AnimatePresence>
+
 
         <div className="mt-8 max-w-2xl w-full">
-          <Input handleSendQuestion={sendQuestion} />
+          <motion.div
+            initial={{ opacity: 0, y: "-50%" }}
+            animate={{ opacity: 1, y: isLoading ? "-100%" : "0%" }}
+            transition={{ delay: 0, duration: 0.4 }}
+          >
+            <Input handleSendQuestion={sendQuestion} />
+          </motion.div>
+
+
 
           {isLoading && <ResponseLoading />}
           {answer && <AIResponse answer={answer} />}
         </div>
       </div>
-    </div>
+    </div >
   );
 };
