@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import rehypeKatex from 'rehype-katex';
+import remarkMath from 'remark-math';
 
 import { cn } from '@/lib/utils';
 
 type TextAnimatorProps = {
   className?: string;
   text: string;
-  speed: number;
+  speed?: number;
 };
 
 export const TextAnimator = ({ text, speed, ...props }: TextAnimatorProps) => {
@@ -32,11 +33,10 @@ export const TextAnimator = ({ text, speed, ...props }: TextAnimatorProps) => {
 
   return (
     <ReactMarkdown
-      {...props}
-      remarkPlugins={[remarkGfm]}
+      children={displayedText}
+      rehypePlugins={[rehypeKatex]}
+      remarkPlugins={[remarkMath]}
       className={cn('whitespace-pre-wrap', props.className)}
-    >
-      {displayedText}
-    </ReactMarkdown>
+    />
   );
 };

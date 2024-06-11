@@ -1,4 +1,5 @@
 import './globals.css';
+import 'katex/dist/katex.min.css';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
