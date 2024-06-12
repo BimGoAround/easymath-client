@@ -122,7 +122,7 @@ export const Input = ({ handleSendQuestion }: InputProps) => {
             <Button
               variant={'link'}
               size={'sm'}
-              disabled={!input ? true : false}
+              disabled={!input || isUploading ? true : false}
               className="hover:bg-zinc-900 rounded py-[2px] px-[1px] h-fit cursor-pointer"
               onClick={handleSubmit}
             >
