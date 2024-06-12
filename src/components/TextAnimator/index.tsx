@@ -4,14 +4,21 @@ import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 
 import { cn } from '@/lib/utils';
+import { Callback } from '@/queries';
 
 type TextAnimatorProps = {
   className?: string;
   text: string;
   speed?: number;
+  toggleTextRendered?: Callback;
 };
 
-export const TextAnimator = ({ text, speed, ...props }: TextAnimatorProps) => {
+export const TextAnimator = ({
+  text,
+  speed,
+  toggleTextRendered,
+  ...props
+}: TextAnimatorProps) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
@@ -24,11 +31,13 @@ export const TextAnimator = ({ text, speed, ...props }: TextAnimatorProps) => {
         setDisplayedText(currentText);
         index++;
       } else {
+        toggleTextRendered && toggleTextRendered();
         clearInterval(timer);
       }
     }, speed);
 
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, speed]);
 
   return (
