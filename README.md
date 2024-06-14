@@ -2,6 +2,8 @@
 
 Artix-Client is the client-side application for the Artix app, a chatbot designed to solve math problems through text or image inputs. Built with React, React Query for state management, and Framer Motion for animations, it offers a dynamic and responsive user experience for anyone seeking help with mathematics.
 
+![EasyMath Demo](resources/easymath-demo.gif)
+
 ## Project Structure
 
 The project is structured as follows:
