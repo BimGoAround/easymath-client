@@ -17,4 +17,10 @@ export default defineConfig({
       '@/components': path.resolve(__dirname, './src/components'),
     },
   },
+  build: {
+    manifest: true,
+    rollupOptions: {
+      external: ['/resources'],
+    },
+  },
 });
